@@ -3,6 +3,9 @@
 
 HardwareSerial SerialPort(2);
 
+int send;
+int receive;
+
 void setup() {
   // put your setup code here, to run once:
   SerialPort.begin(115200,SERIAL_8N1,16,17);
@@ -11,11 +14,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  char number[100]={0};
+  //char receive[100]={0};
   if (SerialPort.available()){
-    SerialPort.readBytesUntil('\n',number,100);
+    receive = SerialPort.parseInt();
     Serial.print("I received: ");
-    Serial.println(number);
+    Serial.println(receive);
+    receive++;
+    SerialPort.print(receive);
+    Serial.print("I'm sending: ");
+    Serial.println(receive);
   }
-  
 }
